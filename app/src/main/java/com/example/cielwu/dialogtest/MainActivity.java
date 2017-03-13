@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.security.Key;
@@ -126,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
                 //对话框中单选项的内容
                 final String itemsArray3[]={"C","C++","JAVA","Android"};
                 //设置多选列表项时的第二个参数，下列表示默认选择第二项
-                /////如何在结束后得知选择了哪些呢？
                 final boolean selection[]={false,true,false,false};
 
                 AlertDialog.Builder builder4=new AlertDialog.Builder(this);
@@ -186,6 +186,34 @@ public class MainActivity extends AppCompatActivity {
                 });
                 builder5.create();
                 builder5.show();
+                break;
+
+            //显示含有自定义view的对话框
+            case R.id.show_view_dialog:
+                //初始化View
+//                LayoutInflater layoutInflater=getLayoutInflater();
+//                RelativeLayout myView= (RelativeLayout) layoutInflater.inflate(R.layout.test_view,null);
+                //或者
+                RelativeLayout myView= (RelativeLayout) getLayoutInflater().inflate(R.layout.test_view,null);
+
+                AlertDialog.Builder builder6=new AlertDialog.Builder(this);
+                builder6.setTitle("View Dialog");
+                builder6.setIcon(R.mipmap.ic_launcher);
+                builder6.setView(myView);//设置自定义的View
+                builder6.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this,"click on OK",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder6.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this,"click on cancel",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder6.create();
+                builder6.show();
                 break;
 
             default:
